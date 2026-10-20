@@ -14,3 +14,7 @@ class Calculator:
         value = complex(self.stack.pop())
         sign = "-" if value.imag < 0 else "+"
         return f"{value.real:g} {sign} j{abs(value.imag):g}"
+
+
+def parse_number(text):
+    return complex(text.replace("j", "") + "j")
