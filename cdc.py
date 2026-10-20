@@ -4,3 +4,8 @@ class Calculator:
 
     def push(self, value):
         self.stack.append(value)
+
+    def mul(self):
+        x = self.stack.pop()
+        y = self.stack.pop()
+        self.stack.append(y * x)
