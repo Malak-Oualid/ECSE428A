@@ -19,3 +19,8 @@ def test_cli_push_complex_with_spaces():
 # T-POP-ERR1
 def test_cli_pop_empty_stack():
     assert run("pop") == "Error: stack underflow"
+
+
+# T-DIV-REAL1
+def test_cli_div_real():
+    assert run("push 8 push 2 div pop") == "4 + j0"

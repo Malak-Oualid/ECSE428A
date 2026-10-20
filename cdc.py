@@ -10,6 +10,11 @@ class Calculator:
         y = self.stack.pop()
         self.stack.append(y * x)
 
+    def div(self):
+        x = self.stack.pop()
+        y = self.stack.pop()
+        self.stack.append(y / x)
+
     def pop(self):
         value = complex(self.stack.pop())
         sign = "-" if value.imag < 0 else "+"
@@ -23,7 +28,7 @@ def parse_number(text):
     return complex(text.replace("j", "") + "j")
 
 
-COMMANDS = ("push", "pop", "mul")
+COMMANDS = ("push", "pop", "mul", "div")
 
 
 def run(text):
@@ -41,6 +46,8 @@ def run(text):
                 calc.push(parse_number(" ".join(number)))
             elif token == "mul":
                 calc.mul()
+            elif token == "div":
+                calc.div()
             elif token == "pop":
                 return calc.pop()
             i += 1
