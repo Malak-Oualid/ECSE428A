@@ -84,3 +84,10 @@ def test_add_stack_underflow():
 
     with pytest.raises(ValueError, match="stack underflow"):
         calc.add()
+
+
+def test_push_pure_imaginary():
+    calc = Calculator()
+    calc.push("j5")
+
+    assert calc.stack == [5j]
