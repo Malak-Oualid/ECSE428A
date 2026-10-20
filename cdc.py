@@ -23,6 +23,9 @@ def parse_number(text):
     return complex(text.replace("j", "") + "j")
 
 
+COMMANDS = ("push", "pop", "mul")
+
+
 def run(text):
     tokens = text.split()
     calc = Calculator()
@@ -30,8 +33,11 @@ def run(text):
     while i < len(tokens):
         token = tokens[i]
         if token == "push":
-            i += 1
-            calc.push(parse_number(tokens[i]))
+            number = []
+            while i + 1 < len(tokens) and tokens[i + 1] not in COMMANDS:
+                i += 1
+                number.append(tokens[i])
+            calc.push(parse_number(" ".join(number)))
         elif token == "mul":
             calc.mul()
         elif token == "pop":
