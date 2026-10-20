@@ -1,4 +1,5 @@
 from cdc import Calculator
+import pytest
 
 
 def test_push_real_number():
@@ -42,9 +43,6 @@ def test_sub_complex_numbers():
     calc.sub()
 
     assert calc.stack == [2 + 6j]
-
-
-import pytest
 
 
 def test_sub_stack_underflow():
@@ -113,3 +111,16 @@ def test_push_real_string():
 
     assert calc.stack == [-2.5]
 
+
+def test_push_negative_imaginary():
+    calc = Calculator()
+    calc.push("-j2")
+
+    assert calc.stack == [-2j]
+
+
+def test_push_invalid_token():
+    calc = Calculator()
+
+    with pytest.raises(ValueError, match="invalid token"):
+        calc.push("abc")
