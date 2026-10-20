@@ -29,17 +29,20 @@ COMMANDS = ("push", "pop", "mul")
 def run(text):
     tokens = text.split()
     calc = Calculator()
-    i = 0
-    while i < len(tokens):
-        token = tokens[i]
-        if token == "push":
-            number = []
-            while i + 1 < len(tokens) and tokens[i + 1] not in COMMANDS:
-                i += 1
-                number.append(tokens[i])
-            calc.push(parse_number(" ".join(number)))
-        elif token == "mul":
-            calc.mul()
-        elif token == "pop":
-            return calc.pop()
-        i += 1
+    try:
+        i = 0
+        while i < len(tokens):
+            token = tokens[i]
+            if token == "push":
+                number = []
+                while i + 1 < len(tokens) and tokens[i + 1] not in COMMANDS:
+                    i += 1
+                    number.append(tokens[i])
+                calc.push(parse_number(" ".join(number)))
+            elif token == "mul":
+                calc.mul()
+            elif token == "pop":
+                return calc.pop()
+            i += 1
+    except IndexError:
+        return "Error: stack underflow"

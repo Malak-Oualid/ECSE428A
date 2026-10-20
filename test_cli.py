@@ -14,3 +14,8 @@ def test_cli_mul_real():
 # T-PUSH-CPLX2
 def test_cli_push_complex_with_spaces():
     assert run("push 3 + j 4 pop") == "3 + j4"
+
+
+# T-POP-ERR1
+def test_cli_pop_empty_stack():
+    assert run("pop") == "Error: stack underflow"
