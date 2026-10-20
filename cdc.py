@@ -11,5 +11,6 @@ class Calculator:
         self.stack.append(y * x)
 
     def pop(self):
-        value = self.stack.pop()
-        return f"{value} + j0"
+        value = complex(self.stack.pop())
+        sign = "-" if value.imag < 0 else "+"
+        return f"{value.real:g} {sign} j{abs(value.imag):g}"
