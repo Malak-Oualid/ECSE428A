@@ -16,11 +16,6 @@ class Calculator:
 
         self.stack.append(value)
 
-    def add(self):
-        b = self.stack.pop()
-        a = self.stack.pop()
-        self.stack.append(a + b)
-
 
     def sub(self):
         if len(self.stack) < 2:
@@ -30,8 +25,18 @@ class Calculator:
         a = self.stack.pop()
         self.stack.append(a - b)
 
+
     def delete(self):
         if len(self.stack) < 1:
             raise ValueError("Error: stack underflow")
 
         self.stack.pop()
+
+
+    def add(self):
+        if len(self.stack) < 2:
+            raise ValueError("Error: stack underflow")
+
+        b = self.stack.pop()
+        a = self.stack.pop()
+        self.stack.append(a + b)

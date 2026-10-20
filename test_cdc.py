@@ -76,3 +76,11 @@ def test_delete_stack_underflow():
 
     with pytest.raises(ValueError, match="stack underflow"):
         calc.delete()
+
+
+def test_add_stack_underflow():
+    calc = Calculator()
+    calc.push(3)
+
+    with pytest.raises(ValueError, match="stack underflow"):
+        calc.add()
