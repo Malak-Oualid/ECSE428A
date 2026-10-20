@@ -98,3 +98,18 @@ def test_push_negative_complex():
     calc.push("-2.5-j0.25")
 
     assert calc.stack == [-2.5 - 0.25j]
+
+
+def test_push_complex_with_spaces():
+    calc = Calculator()
+    calc.push("3 + j 4")
+
+    assert calc.stack == [3 + 4j]
+
+
+def test_push_real_string():
+    calc = Calculator()
+    calc.push("-2.5")
+
+    assert calc.stack == [-2.5]
+
