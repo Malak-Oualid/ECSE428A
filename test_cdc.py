@@ -24,3 +24,12 @@ def test_add_complex_numbers():
     calc.add()
 
     assert calc.stack == [4 + 2j]
+
+
+def test_sub_real_numbers():
+    calc = Calculator()
+    calc.push(5)
+    calc.push(2)
+    calc.sub()
+
+    assert calc.stack == [3]

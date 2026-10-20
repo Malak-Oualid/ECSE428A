@@ -20,3 +20,11 @@ class Calculator:
         b = self.stack.pop()
         a = self.stack.pop()
         self.stack.append(a + b)
+
+
+    
+    def sub(self):
+        b = self.stack.pop()
+        a = self.stack.pop()
+        self.stack.append(a - b)
+
