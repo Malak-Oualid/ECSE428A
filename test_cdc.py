@@ -61,3 +61,12 @@ def test_delete_real_number():
     calc.delete()
 
     assert calc.stack == [1]
+
+
+def test_delete_complex_number():
+    calc = Calculator()
+    calc.push("1+j1")
+    calc.push("2+j3")
+    calc.delete()
+
+    assert calc.stack == [1 + 1j]
