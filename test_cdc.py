@@ -15,3 +15,12 @@ def test_add_real_numbers():
     calc.add()
 
     assert calc.stack == [7]
+
+
+def test_add_complex_numbers():
+    calc = Calculator()
+    calc.push("3+j4")
+    calc.push("1-j2")
+    calc.add()
+
+    assert calc.stack == [4 + 2j]
