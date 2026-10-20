@@ -33,3 +33,31 @@ def test_sub_real_numbers():
     calc.sub()
 
     assert calc.stack == [3]
+
+
+def test_sub_complex_numbers():
+    calc = Calculator()
+    calc.push("3+j4")
+    calc.push("1-j2")
+    calc.sub()
+
+    assert calc.stack == [2 + 6j]
+
+
+import pytest
+
+
+def test_sub_stack_underflow():
+    calc = Calculator()
+    calc.push(3)
+
+    with pytest.raises(ValueError, match="stack underflow"):
+        calc.sub()
+
+def test_delete_real_number():
+    calc = Calculator()
+    calc.push(1)
+    calc.push(2)
+    calc.delete()
+
+    assert calc.stack == [1]
