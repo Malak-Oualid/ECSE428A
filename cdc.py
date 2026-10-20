@@ -21,3 +21,10 @@ def parse_number(text):
     if "j" not in text:
         return complex(text)
     return complex(text.replace("j", "") + "j")
+
+
+def run(text):
+    tokens = text.split()
+    calc = Calculator()
+    calc.push(parse_number(tokens[1]))
+    return calc.pop()
