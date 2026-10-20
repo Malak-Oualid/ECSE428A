@@ -9,3 +9,7 @@ class Calculator:
         x = self.stack.pop()
         y = self.stack.pop()
         self.stack.append(y * x)
+
+    def pop(self):
+        value = self.stack.pop()
+        return f"{value} + j0"
