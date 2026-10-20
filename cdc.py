@@ -53,3 +53,5 @@ def run(text):
             i += 1
     except IndexError:
         return "Error: stack underflow"
+    except ZeroDivisionError:
+        return "Error: division by zero"

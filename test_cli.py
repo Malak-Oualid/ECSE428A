@@ -24,3 +24,8 @@ def test_cli_pop_empty_stack():
 # T-DIV-REAL1
 def test_cli_div_real():
     assert run("push 8 push 2 div pop") == "4 + j0"
+
+
+# T-DIV-ERR1
+def test_cli_div_by_zero():
+    assert run("push 1 push 0 div") == "Error: division by zero"
