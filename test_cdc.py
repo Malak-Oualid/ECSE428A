@@ -91,3 +91,10 @@ def test_push_pure_imaginary():
     calc.push("j5")
 
     assert calc.stack == [5j]
+
+
+def test_push_negative_complex():
+    calc = Calculator()
+    calc.push("-2.5-j0.25")
+
+    assert calc.stack == [-2.5 - 0.25j]
