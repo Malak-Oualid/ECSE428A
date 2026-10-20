@@ -26,5 +26,14 @@ def parse_number(text):
 def run(text):
     tokens = text.split()
     calc = Calculator()
-    calc.push(parse_number(tokens[1]))
-    return calc.pop()
+    i = 0
+    while i < len(tokens):
+        token = tokens[i]
+        if token == "push":
+            i += 1
+            calc.push(parse_number(tokens[i]))
+        elif token == "mul":
+            calc.mul()
+        elif token == "pop":
+            return calc.pop()
+        i += 1
