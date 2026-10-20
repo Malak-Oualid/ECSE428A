@@ -62,7 +62,6 @@ def test_delete_real_number():
 
     assert calc.stack == [1]
 
-
 def test_delete_complex_number():
     calc = Calculator()
     calc.push("1+j1")
@@ -70,3 +69,10 @@ def test_delete_complex_number():
     calc.delete()
 
     assert calc.stack == [1 + 1j]
+
+
+def test_delete_stack_underflow():
+    calc = Calculator()
+
+    with pytest.raises(ValueError, match="stack underflow"):
+        calc.delete()
