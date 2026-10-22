@@ -1,3 +1,6 @@
+import sys
+
+
 class Calculator:
     def __init__(self):
         self.stack = []
@@ -95,3 +98,7 @@ def run(text):
         return "Error: division by zero"
     except ValueError as error:
         return str(error)
+
+
+if __name__ == "__main__":
+    print(run(" ".join(sys.argv[1:])))

@@ -1,3 +1,6 @@
+import subprocess
+import sys
+
 from cdc import run
 
 
@@ -56,3 +59,9 @@ def test_cli_delete_real():
 
 def test_cli_uppercase_commands():
     assert run("PUSH 5 POP") == "5 + j0"
+
+
+def test_cli_program_prints_result():
+    result = subprocess.run([sys.executable, "cdc.py", "push", "5", "pop"],
+                            capture_output=True, text=True)
+    assert result.stdout == "5 + j0\n"
