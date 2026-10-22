@@ -62,7 +62,7 @@ COMMANDS = ("push", "pop", "add", "sub", "mul", "div", "delete")
 
 
 def run(text):
-    tokens = text.split()
+    tokens = text.lower().split()
     calc = Calculator()
     try:
         i = 0

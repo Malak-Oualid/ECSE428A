@@ -52,3 +52,7 @@ def test_cli_sub_real():
 # T-DEL-REAL1
 def test_cli_delete_real():
     assert run("push 1 push 2 delete pop") == "1 + j0"
+
+
+def test_cli_uppercase_commands():
+    assert run("PUSH 5 POP") == "5 + j0"
