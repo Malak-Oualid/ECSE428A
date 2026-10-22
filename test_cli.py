@@ -29,3 +29,7 @@ def test_cli_div_real():
 # T-DIV-ERR1
 def test_cli_div_by_zero():
     assert run("push 1 push 0 div") == "Error: division by zero"
+
+
+def test_cli_invalid_token():
+    assert run("foo") == "Error: invalid token"

@@ -104,8 +104,12 @@ def run(text):
                 calc.div()
             elif token == "pop":
                 return calc.pop()
+            else:
+                raise ValueError("Error: invalid token")
             i += 1
     except IndexError:
         return "Error: stack underflow"
     except ZeroDivisionError:
         return "Error: division by zero"
+    except ValueError as error:
+        return str(error)
