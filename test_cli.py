@@ -33,3 +33,7 @@ def test_cli_div_by_zero():
 
 def test_cli_invalid_token():
     assert run("foo") == "Error: invalid token"
+
+
+def test_cli_push_invalid_number():
+    assert run("push abc pop") == "Error: invalid token"

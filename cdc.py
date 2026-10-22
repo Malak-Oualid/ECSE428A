@@ -77,9 +77,12 @@ class Calculator:
 
 def parse_number(text):
     text = text.replace(" ", "")
-    if "j" not in text:
-        return complex(text)
-    return complex(text.replace("j", "") + "j")
+    try:
+        if "j" not in text:
+            return complex(text)
+        return complex(text.replace("j", "") + "j")
+    except ValueError:
+        raise ValueError("Error: invalid token") from None
 
 
 COMMANDS = ("push", "pop", "mul", "div")
