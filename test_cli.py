@@ -71,3 +71,7 @@ def test_cli_program_prints_nothing_without_pop():
     result = subprocess.run([sys.executable, "cdc.py", "push", "5"],
                             capture_output=True, text=True)
     assert result.stdout == ""
+
+
+def test_cli_negative_zero_shown_as_zero():
+    assert run("push 0 push -1 mul pop") == "0 + j0"

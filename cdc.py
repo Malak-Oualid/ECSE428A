@@ -22,8 +22,9 @@ class Calculator:
 
     def pop(self):
         value = complex(self.stack.pop())
+        real = value.real or 0.0
         sign = "-" if value.imag < 0 else "+"
-        return f"{value.real:g} {sign} j{abs(value.imag):g}"
+        return f"{real:g} {sign} j{abs(value.imag):g}"
 
 
     def sub(self):
