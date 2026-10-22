@@ -37,3 +37,8 @@ def test_cli_invalid_token():
 
 def test_cli_push_invalid_number():
     assert run("push abc pop") == "Error: invalid token"
+
+
+# T-ADD-REAL1
+def test_cli_add_real():
+    assert run("push 2 push 5 add pop") == "7 + j0"

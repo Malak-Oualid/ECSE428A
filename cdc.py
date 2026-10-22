@@ -58,7 +58,7 @@ def parse_number(text):
         raise ValueError("Error: invalid token") from None
 
 
-COMMANDS = ("push", "pop", "mul", "div")
+COMMANDS = ("push", "pop", "add", "mul", "div")
 
 
 def run(text):
@@ -74,6 +74,8 @@ def run(text):
                     i += 1
                     number.append(tokens[i])
                 calc.push(parse_number(" ".join(number)))
+            elif token == "add":
+                calc.add()
             elif token == "mul":
                 calc.mul()
             elif token == "div":
