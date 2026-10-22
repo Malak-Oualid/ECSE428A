@@ -42,3 +42,8 @@ def test_cli_push_invalid_number():
 # T-ADD-REAL1
 def test_cli_add_real():
     assert run("push 2 push 5 add pop") == "7 + j0"
+
+
+# T-SUB-REAL1
+def test_cli_sub_real():
+    assert run("push 5 push 2 sub pop") == "3 + j0"
