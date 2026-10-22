@@ -101,4 +101,6 @@ def run(text):
 
 
 if __name__ == "__main__":
-    print(run(" ".join(sys.argv[1:])))
+    output = run(" ".join(sys.argv[1:]))
+    if output is not None:
+        print(output)

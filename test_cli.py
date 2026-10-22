@@ -65,3 +65,9 @@ def test_cli_program_prints_result():
     result = subprocess.run([sys.executable, "cdc.py", "push", "5", "pop"],
                             capture_output=True, text=True)
     assert result.stdout == "5 + j0\n"
+
+
+def test_cli_program_prints_nothing_without_pop():
+    result = subprocess.run([sys.executable, "cdc.py", "push", "5"],
+                            capture_output=True, text=True)
+    assert result.stdout == ""
