@@ -68,6 +68,7 @@ COMMANDS = ("push", "pop", "add", "sub", "mul", "div", "delete")
 def run(text):
     tokens = text.lower().split()
     calc = Calculator()
+    outputs = []
     try:
         i = 0
         while i < len(tokens):
@@ -89,10 +90,12 @@ def run(text):
             elif token == "delete":
                 calc.delete()
             elif token == "pop":
-                return calc.pop()
+                outputs.append(calc.pop())
             else:
                 raise ValueError("Error: invalid token")
             i += 1
+        if outputs:
+            return "\n".join(outputs)
     except IndexError:
         return "Error: stack underflow"
     except ZeroDivisionError:

@@ -75,3 +75,7 @@ def test_cli_program_prints_nothing_without_pop():
 
 def test_cli_negative_zero_shown_as_zero():
     assert run("push 0 push -1 mul pop") == "0 + j0"
+
+
+def test_cli_multiple_pops():
+    assert run("push 1 push 2 pop pop") == "2 + j0\n1 + j0"
