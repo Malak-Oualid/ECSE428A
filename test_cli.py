@@ -47,3 +47,8 @@ def test_cli_add_real():
 # T-SUB-REAL1
 def test_cli_sub_real():
     assert run("push 5 push 2 sub pop") == "3 + j0"
+
+
+# T-DEL-REAL1
+def test_cli_delete_real():
+    assert run("push 1 push 2 delete pop") == "1 + j0"
