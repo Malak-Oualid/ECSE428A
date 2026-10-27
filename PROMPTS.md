@@ -150,4 +150,113 @@ Generative AI was used following the Kent Beck TDD cycle: one prompt for just en
 
 ## Alexandre Danon
 
-_Add your prompts here (or note that this part was written without AI)._
+### Step 1: PUSH — store a real number
+
+- **Test prompt:** Write the first pytest test in `test_cdc.py`: create `Calculator`, call `push(5)`, and verify `calc.stack == [5]`. Write the test before implementing `Calculator`.
+- **Observed RED:** Importing `Calculator` failed because the class did not yet exist.
+- **Code prompt:** Implement only the `Calculator` class, its initially empty stack and the `push(value)` method in `cdc.py` to pass the test.
+- **Observed GREEN:** 1 test passed.
+
+### Step 2: ADD — two real numbers (T-ADD-REAL1)
+
+- **Test prompt:** Add `test_add_real_numbers`: push `2` and `5`, call `add()`, and assert that the stack contains `[7]`. Do not implement `add()` yet.
+- **Observed RED:** `AttributeError` because `Calculator` had no `add` method; the existing PUSH test passed.
+- **Code prompt:** Add the smallest `add()` method: pop both operands in stack order and push their sum.
+- **Observed GREEN:** 2 tests passed.
+
+### Step 3: ADD — two complex numbers (T-ADD-CPLX1)
+
+- **Test prompt:** Test `push("3+j4")`, `push("1-j2")`, and `add()`; expect `[4 + 2j]`.
+- **Observed RED:** Strings were concatenated instead of added numerically.
+- **Code prompt:** Extend `push()` to convert textual `a+jb` and `a-jb` numbers to Python complex numbers while preserving the existing tests.
+- **Observed GREEN:** 3 tests passed.
+
+### Step 4: SUB — two real numbers (T-SUB-REAL1)
+
+- **Test prompt:** Add a pytest test that pushes `5` and `2`, calls `sub()`, and expects `[3]`.
+- **Observed RED:** `AttributeError` because `sub()` did not exist.
+- **Code prompt:** Add `sub()` by popping `b` then `a` and pushing `a - b`; do not modify existing tests.
+- **Observed GREEN:** 4 tests passed.
+
+### Step 5: SUB — two complex numbers (T-SUB-CPLX1)
+
+- **Test prompt:** Add a test for `(3+j4) - (1-j2)`, expecting `[2 + 6j]`.
+- **Result:** The test **passed immediately** because the prior number parser and subtraction method already supported this case. No production code change was needed; 5 tests passed. This was a regression/coverage test, not a new RED–GREEN implementation cycle.
+
+### Step 6: SUB — insufficient operands (T-SUB-ERR1)
+
+- **Test prompt:** Push only `3`, call `sub()`, and assert that it raises `ValueError` with text `stack underflow`.
+- **Observed RED:** Python raised `IndexError: pop from empty list` instead.
+- **Code prompt:** Add a stack-length check to `sub()` that raises `ValueError("Error: stack underflow")` before changing the stack.
+- **Observed GREEN:** 6 tests passed.
+
+### Step 7: SUB — refactor duplicate definition
+
+- **Refactor prompt:** Remove the older duplicate `sub()` definition, leaving only the version that validates stack length.
+- **Regression result:** All 6 existing tests still passed. No new test was required for this cleanup.
+
+### Step 8: DELETE — real numbers (T-DEL-REAL1)
+
+- **Test prompt:** Push `1` and `2`, call `delete()`, and assert that the remaining stack is `[1]`.
+- **Observed RED:** `AttributeError` because `delete()` did not exist.
+- **Code prompt:** Implement the smallest `delete()` method that removes the top stack element without printing it.
+- **Observed GREEN:** 7 tests passed.
+
+### Step 9: DELETE — complex numbers (T-DEL-CPLX1)
+
+- **Test prompt:** Push `"1+j1"` and `"2+j3"`, call `delete()`, and assert that the stack contains `[1 + 1j]`.
+- **Result:** The test **passed immediately**; `delete()` already worked regardless of the stored number type. 8 tests passed. No new implementation was needed.
+
+### Step 10: DELETE — empty stack (T-DEL-ERR1)
+
+- **Test prompt:** Call `delete()` on an empty `Calculator` and expect `ValueError` matching `stack underflow`.
+- **Observed RED:** `IndexError: pop from empty list`.
+- **Code prompt:** Check whether the stack is empty before deleting and raise `ValueError("Error: stack underflow")`.
+- **Observed GREEN:** 9 tests passed.
+
+### Step 11: ADD — insufficient operands (T-ADD-ERR1)
+
+- **Test prompt:** Push only `3`, call `add()`, and assert that a `ValueError` with `stack underflow` is raised.
+- **Observed RED:** `IndexError: pop from empty list`.
+- **Code prompt:** Add the same two-operand stack-length validation to `add()` without altering its arithmetic behavior.
+- **Observed GREEN:** 10 tests passed.
+- **Refactor prompt:** Remove the superseded duplicate `add()` definition and rerun all tests.
+
+### Step 12: PUSH — positive imaginary-only number
+
+- **Test prompt:** Add a test that pushes the text `"j5"` and expects `[5j]`.
+- **Observed RED:** The parser stored the string `"5"` rather than a complex value.
+- **Code prompt:** Extend `push()` to recognize an initial `j` and convert its following numeric part to a purely imaginary complex number, while preserving the other formats.
+- **Observed GREEN:** 11 tests passed.
+
+### Step 13: PUSH — negative real and imaginary parts (T-PUSH-CPLX1)
+
+- **Test prompt:** Add a test that pushes `"-2.5-j0.25"` and expects `[-2.5 - 0.25j]`.
+- **Result:** The test **passed immediately** because the existing converter handled this case. 12 tests passed; no production change was made.
+
+### Step 14: PUSH — complex number with spaces (T-PUSH-CPLX2)
+
+- **Test prompt:** Add a test that pushes `"3 + j 4"` and expects `[3 + 4j]`.
+- **Result:** The test **passed immediately** with the existing `push()` implementation. 13 tests passed; no production change was made.
+
+### Step 15: PUSH — real number supplied as text
+
+- **Test prompt:** Add a test for `push("-2.5")`, expecting the numeric stack value `[-2.5]`, not the text string.
+- **Observed RED:** The stack held `"-2.5"`.
+- **Code prompt:** Extend `push()` to call `float(value)` for real strings that do not represent a general complex number.
+- **Observed GREEN:** 14 tests passed.
+
+### Step 16: PUSH — negative imaginary-only number
+
+- **Test prompt:** Add a test that pushes `"-j2"` and expects `[-2j]`.
+- **Observed RED:** The parser produced the real number `-2.0`.
+- **Code prompt:** Add a branch in `push()` for strings beginning `-j`, converting the remaining numeric portion into a negative imaginary component.
+- **Observed GREEN:** 15 tests passed.
+
+### Step 17: PUSH — invalid numeric token
+
+- **Test prompt:** Add `test_push_invalid_token`: `push("abc")` should raise `ValueError` whose message includes `invalid token`.
+- **Observed RED:** Python produced the default float-conversion error rather than the required error message.
+- **Code prompt:** Wrap string parsing in `try`/`except` and raise `ValueError("Error: invalid token")` on invalid input, without breaking valid parsing.
+- **Observed GREEN:** 16 tests passed.
+
